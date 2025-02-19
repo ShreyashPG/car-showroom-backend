@@ -77,9 +77,9 @@ class BasicController {
 
   updateSpecialAccessFields = catchAsyncErrors(async (req, res) => {
     try {
-      const { username, employeeTables, teacherTables } = req.body;
+      const { username, employeeTables, saleTables } = req.body;
 
-      const data = await updateSpecialAccessFields(username, employeeTables, teacherTables);
+      const data = await updateSpecialAccessFields(username, employeeTables, saleTables);
 
       res.json({ success: true, message: "Special access updated successfully" });
     } catch (error) {
@@ -91,9 +91,9 @@ class BasicController {
     try {
         const { username } = req.query;
         const data = await getSpecialAccessTables(username);
-        const combinedData = data[0].reduce((accumulator, { SpecialAccess_Employee, SpecialAccess_Teacher }) => {
+        const combinedData = data[0].reduce((accumulator, { SpecialAccess_Employee, SpecialAccess_Sale }) => {
             accumulator.SpecialAccess_Employee = (accumulator.SpecialAccess_Employee || []).concat(SpecialAccess_Employee.split(',').filter(Boolean));
-            accumulator.SpecialAccess_Teacher = (accumulator.SpecialAccess_Teacher || []).concat(SpecialAccess_Teacher.split(',').filter(Boolean));
+            accumulator.SpecialAccess_Sale = (accumulator.SpecialAccess_Sale || []).concat(SpecialAccess_Sale.split(',').filter(Boolean));
             return accumulator;
         }, {});
         res.status(200).send({ success: true, data: combinedData });
@@ -107,9 +107,9 @@ class BasicController {
 
 removeSpecialAccessFields = catchAsyncErrors(async (req, res) => {
   try {
-    const { username, employeeTables, teacherTables } = req.body;
+    const { username, employeeTables, saleTables } = req.body;
 
-    const data = await removeSpecialAccessFields(username, employeeTables, teacherTables);
+    const data = await removeSpecialAccessFields(username, employeeTables, saleTables);
 
     res.json({ success: true, message: "Special access updated successfully" });
   } catch (error) {
@@ -147,7 +147,7 @@ removeSpecialAccessFields = catchAsyncErrors(async (req, res) => {
 getEntryCountsAPI = catchAsyncErrors(async (req, res) => {
   try {
     // Fetch table names from the alltables_stud_fact table
-    const { employeeTables, teacherTables } = await getTableNames();
+    const { employeeTables, saleTables } = await getTableNames();
 
     // Fetch entry counts for employee tables
     const employeeEntryCounts = await Promise.all(employeeTables.map(async (tableName) => {
@@ -155,13 +155,13 @@ getEntryCountsAPI = catchAsyncErrors(async (req, res) => {
       return { [tableName]: entryCount };
     }));
 
-    // Fetch entry counts for teacher tables
-    const teacherEntryCounts = await Promise.all(teacherTables.map(async (tableName) => {
+    // Fetch entry counts for sale tables
+    const saleEntryCounts = await Promise.all(saleTables.map(async (tableName) => {
       const entryCount = await getEntryCountsOfTable(tableName);
       return { [tableName]: entryCount };
     }));
 
-    res.json({ success: true, data: { Employee_Tables: employeeEntryCounts, Teacher_Tables: teacherEntryCounts } });
+    res.json({ success: true, data: { Employee_Tables: employeeEntryCounts, Sale_Tables: saleEntryCounts } });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -197,7 +197,7 @@ getEntryCountsOfUser = catchAsyncErrors(async (req, res) => {
 getEntryCountsAPI = catchAsyncErrors(async (req, res) => {
   try {
     // Fetch table names from the alltables_stud_fact table
-    const { employeeTables, teacherTables } = await getTableNames();
+    const { employeeTables, saleTables } = await getTableNames();
 
     // Fetch entry counts for employee tables
     const employeeEntryCounts = await Promise.all(employeeTables.map(async (tableName) => {
@@ -205,13 +205,13 @@ getEntryCountsAPI = catchAsyncErrors(async (req, res) => {
       return { [tableName]: entryCount };
     }));
 
-    // Fetch entry counts for teacher tables
-    const teacherEntryCounts = await Promise.all(teacherTables.map(async (tableName) => {
+    // Fetch entry counts for sale tables
+    const saleEntryCounts = await Promise.all(saleTables.map(async (tableName) => {
       const entryCount = await getEntryCountsOfTable(tableName);
       return { [tableName]: entryCount };
     }));
 
-    res.json({ success: true, data: { Employee_Tables: employeeEntryCounts, Teacher_Tables: teacherEntryCounts } });
+    res.json({ success: true, data: { Employee_Tables: employeeEntryCounts, Sale_Tables: saleEntryCounts } });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

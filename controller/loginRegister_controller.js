@@ -17,8 +17,8 @@ export const register = async (req, res) => {
       "SELECT * FROM employee_login WHERE Email = ?",
       [gmail]
     );
-    const teacher = await pool.query(
-      "SELECT * FROM teacher_login WHERE Username = ?",
+    const sale = await pool.query(
+      "SELECT * FROM sale_login WHERE Username = ?",
       [gmail]
     );
 
@@ -42,7 +42,7 @@ export const register = async (req, res) => {
         [name, gmail, hash_password, role, pro_email]
       );
       res.status(200).send("Registration successful");
-    } else if (teacher[0].length > 0) {
+    } else if (sale[0].length > 0) {
       role = 1;
       await pool.query(
         "INSERT INTO register (Name, Username, Password, Role, Professional_Email) VALUES(?,?,?,?,?)",
@@ -63,8 +63,8 @@ export const verify = async (req, res) => {
   let role;
 
   try {
-    const teacher = await pool.query(
-      "SELECT * FROM teacher_login WHERE Username = ? AND Password = ?",
+    const sale = await pool.query(
+      "SELECT * FROM sale_login WHERE Username = ? AND Password = ?",
       [gmail, password]
     );
     const employee = await pool.query(
@@ -73,10 +73,10 @@ export const verify = async (req, res) => {
     );
     if (employee[0].length > 0) {
       role = 2;
-    } else if (teacher[0].length > 0) {
+    } else if (sale[0].length > 0) {
       role = 1;
     }
-    if (employee[0].length > 0 || teacher[0].length > 0) {
+    if (employee[0].length > 0 || sale[0].length > 0) {
       res.status(200).send({
         success: true,
         message: "Email and Password verified",
@@ -180,16 +180,16 @@ export const login = async (req, res) => {
 
 
 
-export const getAllTeacher = async (req, res) => {
+export const getAllSale = async (req, res) => {
   try {
-    const teacher = await pool.query(
-      "SELECT Name, Username, Role, SpecialAccess_Teacher, SpecialAccess_Employee FROM register WHERE Role = 1"
+    const sale = await pool.query(
+      "SELECT Name, Username, Role, SpecialAccess_Sale, SpecialAccess_Employee FROM register WHERE Role = 1"
     );
-    if (teacher[0].length > 0) {
+    if (sale[0].length > 0) {
       res.status(200).send({
         success: true,
         message: "Data Fetched Successfully",
-        data: teacher[0],
+        data: sale[0],
       });
     } else {
       res.status(401).send({

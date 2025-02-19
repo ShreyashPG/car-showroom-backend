@@ -45,6 +45,6 @@ export class EmployeeEventOrganizationController extends GenericController{
 
 export class AllUsernamesController extends GenericController {
   constructor() {
-    super(AllUsernames,'T_ID')
+    super(AllUsernames,'S_ID')
   }
 }

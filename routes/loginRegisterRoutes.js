@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import { login, register, verify, checkRegistration, getAllEmployee, getAllTeacher, forgotPasswordController, resetPasswordController } from '../controller/loginRegister_controller.js';
+import { login, register, verify, checkRegistration, getAllEmployee, getAllSale, forgotPasswordController, resetPasswordController } from '../controller/loginRegister_controller.js';
 
 // const login = require("../../controllers/register.js")
 // const register = require("../../controllers/register.js");
@@ -19,7 +19,7 @@ router.post('/login', login);
 
 router.get('/getAllEmployee', getAllEmployee);
 
-router.get('/getAllTeacher', getAllTeacher);
+router.get('/getAllSale', getAllSale);
 
 router.post('/forgot-password', forgotPasswordController);
 

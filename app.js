@@ -11,7 +11,7 @@ app.use(cors())
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // Route imports
-import teachersRoute from './routes/teachers.routes.js'
+import salesRoutes from './routes/sales.routes.js'
 import loginRegisterRoutes from './routes/loginRegisterRoutes.js';
 import basicRoutes from './routes/basics.routes.js';
 import employeeRoutes from './routes/employees_routes.js';
@@ -33,7 +33,7 @@ const __dirname = dirname(__filename);
 //     next();
 // });
 
-app.use("/api/v1/teacher", teachersRoute);
+app.use("/api/v1/sale", salesRoutes);
 app.use("/api/v1/auth", loginRegisterRoutes);
 app.use("/api/v1/general",basicRoutes)
 app.use("/api/v1/employee", employeeRoutes);

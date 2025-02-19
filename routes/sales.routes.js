@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 
-const router = express.Router();
+ const router = express.Router();
 const upload = multer();
 
 import {
@@ -14,8 +14,8 @@ import {
     Industrial_VisitsController,
 
     AllUsernamesController,
-    EmployeeTeacherTablesController
-} from '../controller/teachers.controller.js';
+    EmployeeSaleTablesController
+} from '../controller/sales.controller.js';
 
 
 
@@ -84,7 +84,7 @@ const controller19 = new AllUsernamesController();
 
 router.get("/getUsernames/usernames", controller19.getAllUsers)
 
-const controller20 = new EmployeeTeacherTablesController();
+const controller20 = new EmployeeSaleTablesController();
 
 router.get("/gettables/tables-stud-fact", controller20.getTableNamesST);
 

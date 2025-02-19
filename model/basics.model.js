@@ -37,7 +37,7 @@ export async function updateSpecialAccess(Email, SpecialAccess) {
 }
 
 // Update SpecialAccess columns for a user
-export async function updateSpecialAccessFields(username, employeeTables, teacherTables) {
+export async function updateSpecialAccessFields(username, employeeTables, saleTables) {
   // Function to remove duplicates from an array
   const removeDuplicates = (array) => Array.from(new Set(array));
 
@@ -51,22 +51,22 @@ export async function updateSpecialAccessFields(username, employeeTables, teache
     UPDATE register
     SET 
         SpecialAccess_Employee = ?,
-        SpecialAccess_Teacher = ?
+        SpecialAccess_Sale = ?
     WHERE Username = ?;
   `;
 
   // Fetch existing values
-  const fetchQuery = `SELECT SpecialAccess_Employee, SpecialAccess_Teacher FROM register WHERE Username = ?`;
+  const fetchQuery = `SELECT SpecialAccess_Employee, SpecialAccess_Sale FROM register WHERE Username = ?`;
   const [existingValues] = await sql.query(fetchQuery, [username]);
 
   const existingEmployeeTables = existingValues[0]?.SpecialAccess_Employee || '';
-  const existingTeacherTables = existingValues[0]?.SpecialAccess_Teacher || '';
+  const existingSaleTables = existingValues[0]?.SpecialAccess_Sale || '';
 
   // Append new values without duplicates
   const updatedEmployeeTables = appendWithoutDuplicates(existingEmployeeTables, employeeTables);
-  const updatedTeacherTables = appendWithoutDuplicates(existingTeacherTables, teacherTables);
+  const updatedSaleTables = appendWithoutDuplicates(existingSaleTables, saleTables);
 
-  const params = [updatedEmployeeTables, updatedTeacherTables, username];
+  const params = [updatedEmployeeTables, updatedSaleTables, username];
   await sql.query(query, params);
 }
 
@@ -74,12 +74,12 @@ export async function updateSpecialAccessFields(username, employeeTables, teache
 // get the names of the tables whose access is given by admin
 
 export async function getSpecialAccessTables (username) {
-  const query = `SELECT SpecialAccess_Employee, SpecialAccess_Teacher FROM register WHERE Username = '${username}';`;
+  const query = `SELECT SpecialAccess_Employee, SpecialAccess_Sale FROM register WHERE Username = '${username}';`;
   return await sql.query(query)
 }
 
 // remove any table from special access of a user 
-export async function removeSpecialAccessFields(username, employeeTables, teacherTables) {
+export async function removeSpecialAccessFields(username, employeeTables, saleTables) {
   // Function to remove values from existing values
   const removeValues = (existingValues, valuesToRemove) => {
     const updatedValues = existingValues.split(',').filter(value => !valuesToRemove.includes(value));
@@ -90,34 +90,34 @@ export async function removeSpecialAccessFields(username, employeeTables, teache
     UPDATE register
     SET 
         SpecialAccess_Employee = ?,
-        SpecialAccess_Teacher = ?
+        SpecialAccess_Sale = ?
     WHERE Username = ?;
   `;
 
   // Fetch existing values
-  const fetchQuery = `SELECT SpecialAccess_Employee, SpecialAccess_Teacher FROM register WHERE Username = ?`;
+  const fetchQuery = `SELECT SpecialAccess_Employee, SpecialAccess_Sale FROM register WHERE Username = ?`;
   const [existingValues] = await sql.query(fetchQuery, [username]);
 
   // Remove specified values
   const updatedEmployeeTables = removeValues(existingValues[0].SpecialAccess_Employee, employeeTables);
-  const updatedTeacherTables = removeValues(existingValues[0].SpecialAccess_Teacher, teacherTables);
+  const updatedSaleTables = removeValues(existingValues[0].SpecialAccess_Sale, saleTables);
 
-  const params = [updatedEmployeeTables, updatedTeacherTables, username];
+  const params = [updatedEmployeeTables, updatedSaleTables, username];
   await sql.query(query, params);
 }
 
 // Get count of entries for a user in each table
 export async function getEntryCountsOfUser(username) {
   try {
-    // Determine if the user is a teacher or employee based on the 'Role' column
+    // Determine if the user is a sale or employee based on the 'Role' column
     const roleQuery = `SELECT Role FROM register WHERE Username = ?`;
     const [roleResult] = await sql.query(roleQuery, [username]);
     const role = roleResult[0].Role;
 
     let tablesColumn;
     if (role === 1) {
-      // Teacher role
-      tablesColumn = 'Teacher_Tables';
+      // Sale role
+      tablesColumn = 'Sale_Tables';
     } else if (role === 2) {
       // Employee role
       tablesColumn = 'Employee_Tables';
@@ -158,12 +158,12 @@ export async function getTableNames() {
     
     const allTables = tablesResult[0];
     
-    // Assuming 'Employee_Tables' and 'Teacher_Tables' are columns in the result
+    // Assuming 'Employee_Tables' and 'Sale_Tables' are columns in the result
     const employeeTables = tablesResult.map(row => row.Employee_Tables).filter(tableName => tableName.trim() !== '');
-    const teacherTables = tablesResult.map(row => row.Teacher_Tables).filter(tableName => tableName.trim() !== '');
+    const saleTables = tablesResult.map(row => row.Sale_Tables).filter(tableName => tableName.trim() !== '');
 
 
-    return { employeeTables, teacherTables };
+    return { employeeTables, saleTables };
   } catch (error) {
     throw new Error(`Error fetching table names: ${error.message}`);
   }

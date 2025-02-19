@@ -146,7 +146,7 @@ class BaseModel {
 
   // get all the columns that are selected for filtering by giving a table name
   async getFilteringColumns() {
-    const query = `SELECT filtering_columns FROM metadata_teacher WHERE table_name = '${this.tableName}'`;
+    const query = `SELECT filtering_columns FROM metadata_sale WHERE table_name = '${this.tableName}'`;
     
     // return await sql.query(query, [tableName]);
     const [rows] = await sql.query(query, [this.tableName]); 
@@ -192,7 +192,7 @@ class BaseModel {
   // get names of tables for employees and teahers
 
   async getTableNamesST() {
-    const query = `SELECT Employee_Tables,Teacher_Tables FROM ${this.tableName};`;
+    const query = `SELECT Employee_Tables,Sale_Tables FROM ${this.tableName};`;
     
     return await sql.query(query);
   }
@@ -246,10 +246,10 @@ class BaseModel {
 
   getUploadPath(username, role, tableName, columnName) {
     const baseUploadPath = this.baseUploadPath;
-    // const roleFolder = role === 1 ? 'Teacher_Uploads' : 'Employee_Uploads';
+    // const roleFolder = role === 1 ? 'Sale_Uploads' : 'Employee_Uploads';
     let roleFolder = 'Admin_Uploads';
 
-    if(role == 1) roleFolder = 'Teacher_Uploads';
+    if(role == 1) roleFolder = 'Sale_Uploads';
     if(role == 2) roleFolder = 'Employee_Uploads';
 
     const userFolder = username;

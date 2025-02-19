@@ -153,12 +153,12 @@ class GenericController {
       const modelInstance = new this.Model();
       const tableNames = await modelInstance.getTableNamesST();
 
-      // combining all employee and teacher data into separate arrays so that it will be easy to map in frontend 
-      const combinedData = tableNames[0].reduce((accumulator, { Employee_Tables, Teacher_Tables }) => {
+      // combining all employee and sale data into separate arrays so that it will be easy to map in frontend 
+      const combinedData = tableNames[0].reduce((accumulator, { Employee_Tables, Sale_Tables }) => {
         accumulator.Employee_Tables.push(...Employee_Tables.split(',').filter(Boolean));
-        accumulator.Teacher_Tables.push(...Teacher_Tables.split(',').filter(Boolean));
+        accumulator.Sale_Tables.push(...Sale_Tables.split(',').filter(Boolean));
         return accumulator;
-      }, { Employee_Tables: [], Teacher_Tables: [] });
+      }, { Employee_Tables: [], Sale_Tables: [] });
 
       res.json({ success: true, data: combinedData });
     } catch (error) {

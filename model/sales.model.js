@@ -12,14 +12,14 @@ const baseUploadPath = path.join(__dirname, "..", "Uploads");
 // Grants Model
 export class Grants extends BaseModel {
   constructor() {
-    super('grants', 'T_ID', baseUploadPath)
+    super('grants', 'S_ID', baseUploadPath)
   }
 }
 
 // ConsultancyReport Model
 export class ConsultancyReport extends BaseModel {
   constructor() {
-    super('consultancy_report', 'T_ID', baseUploadPath)
+    super('consultancy_report', 'S_ID', baseUploadPath)
   }
 }
 
@@ -27,7 +27,7 @@ export class ConsultancyReport extends BaseModel {
 // SSTP_FDP_Workshop Model
 export class SSTP_FDP_Workshop extends BaseModel {
   constructor() {
-    super('sttp_fdp_conference_attended', 'T_ID', baseUploadPath)
+    super('sttp_fdp_conference_attended', 'S_ID', baseUploadPath)
   }
 }
 
@@ -36,7 +36,7 @@ export class SSTP_FDP_Workshop extends BaseModel {
 //  Extension Activity
 export class Extension_Activity extends BaseModel {
   constructor() {
-    super('extension_activity', 'T_ID',baseUploadPath)
+    super('extension_activity', 'S_ID',baseUploadPath)
   }
 }
 
@@ -44,7 +44,7 @@ export class Extension_Activity extends BaseModel {
 //  Industrial Visit, Tours, Field Trip
 export class Industrial_Visits extends BaseModel {
   constructor() {
-    super('industrial_fields_tour', 'T_ID', baseUploadPath)
+    super('industrial_fields_tour', 'S_ID', baseUploadPath)
   }
 }
 
@@ -52,13 +52,13 @@ export class Industrial_Visits extends BaseModel {
 
 export class AllUsernames extends BaseModel {
   constructor() {
-    super('teacher_login', 'T_ID')
+    super('sale_login', 'S_ID')
   }
 }
 
 // get table names for employee and teahers
 
-export class EmployeeTeacherTables extends BaseModel {
+export class EmployeeSaleTables extends BaseModel {
   constructor() {
     super('alltables_stud_fact', 'P_ID')
   }
