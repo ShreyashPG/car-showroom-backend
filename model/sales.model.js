@@ -52,7 +52,7 @@ export class Lead_Conversions extends BaseModel {
 
 export class AllUsernames extends BaseModel {
   constructor() {
-    super('sale_login', 'S_ID')
+    super('employee_login', 'S_ID')
   }
 }
 
