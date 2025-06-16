@@ -9,25 +9,25 @@ const baseUploadPath = path.join(__dirname, "..", "Uploads");
 
 
 
-// Grants Model
-export class Grants extends BaseModel {
+// MonthlySales Model
+export class MonthlySales extends BaseModel {
   constructor() {
-    super('grants', 'S_ID', baseUploadPath)
+    super('monthlySales', 'S_ID', baseUploadPath)
   }
 }
 
-// ConsultancyReport Model
-export class ConsultancyReport extends BaseModel {
+// StockReport Model
+export class StockReport extends BaseModel {
   constructor() {
-    super('consultancy_report', 'S_ID', baseUploadPath)
+    super('stock_report', 'S_ID', baseUploadPath)
   }
 }
 
 
-// SSTP_FDP_Workshop Model
-export class SSTP_FDP_Workshop extends BaseModel {
+// Profit_Loss_Report Model
+export class Profit_Loss_Report extends BaseModel {
   constructor() {
-    super('sttp_fdp_conference_attended', 'S_ID', baseUploadPath)
+    super('profit_loss_report', 'S_ID', baseUploadPath)
   }
 }
 
@@ -41,10 +41,10 @@ export class Extension_Activity extends BaseModel {
 }
 
 
-//  Industrial Visit, Tours, Field Trip
-export class Industrial_Visits extends BaseModel {
+//  Lead Conversions
+export class Lead_Conversions extends BaseModel {
   constructor() {
-    super('industrial_fields_tour', 'S_ID', baseUploadPath)
+    super('lead_conversions', 'S_ID', baseUploadPath)
   }
 }
 

@@ -3,12 +3,12 @@ import GenericController from './Generic_controller.js';
 
 import { 
 
-  Grants, 
-  ConsultancyReport, 
+  MonthlySales, 
+  StockReport, 
  
-  SSTP_FDP_Workshop,
+  Profit_Loss_Report,
 
-  Industrial_Visits,
+  Lead_Conversions,
   
   AllUsernames,
   EmployeeSaleTables,
@@ -17,35 +17,35 @@ import {
 
 
 
-// Grants Controller
-export class GrantsController extends GenericController{
+// MonthlySales Controller
+export class MonthlySalesController extends GenericController{
   constructor(){
-      super(Grants,'S_ID');
+      super(MonthlySales,'S_ID');
   }
 }
 
-// ConsultancyReport Controller
-export class ConsultancyReportController extends GenericController{
+// StockReport Controller
+export class StockReportController extends GenericController{
   constructor(){
-      super(ConsultancyReport,'S_ID');
-  }
-}
-
-
-
-
-// SSTP_FDP_Workshop Controller
-export class SSTP_FDP_WorkshopController extends GenericController{
-  constructor(){
-      super(SSTP_FDP_Workshop,'S_ID');
+      super(StockReport,'S_ID');
   }
 }
 
 
-// Industrial_Visits Controller
-export class Industrial_VisitsController extends GenericController {
+
+
+// Profit_Loss_Report Controller
+export class Profit_Loss_ReportController extends GenericController{
+  constructor(){
+      super(Profit_Loss_Report,'S_ID');
+  }
+}
+
+
+// Lead_Conversions Controller
+export class Lead_ConversionsController extends GenericController {
   constructor() {
-    super(Industrial_Visits,'S_ID')
+    super(Lead_Conversions,'S_ID')
   }
 }
 

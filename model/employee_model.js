@@ -14,7 +14,7 @@ export class EmployeeInternshipDetails extends BaseModel {
   }
 }
 
-// Grants Model
+// MonthlySales Model
 export class EmployeeCertificateCourses extends BaseModel {
   constructor() {
     super('employee_certificate_course', 'S_ID', baseUploadPath)
