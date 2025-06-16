@@ -18,7 +18,7 @@ export const register = async (req, res) => {
       [gmail]
     );
     const sale = await pool.query(
-      "SELECT * FROM employee_login WHERE Username = ?",
+      "SELECT * FROM sale_login WHERE Username = ?",
       [gmail]
     );
 
@@ -64,7 +64,7 @@ export const verify = async (req, res) => {
 
   try {
     const sale = await pool.query(
-      "SELECT * FROM employee_login WHERE Username = ? AND Password = ?",
+      "SELECT * FROM sale_login WHERE Username = ? AND Password = ?",
       [gmail, password]
     );
     const employee = await pool.query(
